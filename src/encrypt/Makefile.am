@@ -1,0 +1,2 @@
+noinst_LTLIBRARIES=libencrypt.la
+libencrypt_la_SOURCES=encrypt.c
