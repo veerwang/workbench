@@ -692,8 +692,9 @@ struct string {
 
 /* ABook struct */
 typedef struct _ABOOK {
-	char* name;
-	char* email;
+	char* name;		/* 联系人姓名 */
+	char* email;		/* 联系人E-mail地址 */
+	char* description;      /* 描述信息 */
 } ABOOK;
 
 /* Return codes for the getstring() function. */
