@@ -779,6 +779,9 @@ int main(int argc, char **argv)
 	cjson_insert_element(&ab);
 
 	cjson_sync_disk();
+	release_json_module();
+
+	cjson_parse_disk();
 
 	/*
 	 * Read the data from files : first the user
@@ -901,5 +904,4 @@ int main(int argc, char **argv)
 		count = 0;
 	}
 
-	release_json_module();
 }

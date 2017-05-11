@@ -23,6 +23,7 @@
 #include "../calcurse.h"
 
 static cJSON *mjson_root = NULL;
+static cJSON *mjson_read_root = NULL;
 
 
 	static 
@@ -39,6 +40,38 @@ void write_to_file(char* buf)
 	}
 }
 
+	static
+int get_file_length()
+{
+	FILE* fd = NULL;
+	fd = fopen(path_abook,"r");
+
+	if ( fd != NULL )
+	{
+		fseek(fd,0L,SEEK_END);
+		int size = ftell(fd);
+		fclose(fd);
+		return size;
+	}
+	return 0;
+}
+
+	static
+void read_from_file(char* buf,int len)
+{
+	FILE* fd = NULL;
+	fd = fopen(path_abook,"r");
+
+	if ( fd != NULL )
+	{
+		fread(buf,len,1,fd);
+		fclose(fd);
+	}
+}
+
+/*
+ * 将json数据保存到磁盘中 
+ */
 void cjson_sync_disk()
 {
 	char *out = cJSON_Print(mjson_root);	
@@ -70,3 +103,19 @@ void release_json_module()
 		cJSON_Delete(mjson_root);
 	}
 }
+
+/*
+ * 将json数据从磁盘中读取
+ */
+void cjson_parse_disk()
+{
+	int length = get_file_length();
+	char *raw = xmalloc(length);
+	read_from_file(raw,length);
+
+	mjson_read_root = cJSON_Parse(raw);
+	printf("%s: %s\n",mjson_read_root->child->string,mjson_read_root->child->valuestring);
+	
+	xfree(raw);
+}
+
