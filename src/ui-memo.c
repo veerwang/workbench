@@ -146,5 +146,9 @@ void display_draft_view(void)
 
 void display_abook_view(void)
 {
+	llist_item_t *p = LLIST_FIRST(&memolist);
 
+	listbox_set_cb_data(&lb_memo, &p);
+
+	listbox_display(&lb_memo);
 }

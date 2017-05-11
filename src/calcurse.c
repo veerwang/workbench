@@ -553,6 +553,16 @@ static inline void key_end_of_week(void)
 	}
 }
 
+static inline void redraw_memo_panel()
+{
+	memo_free_list();
+	if 	( ui_memo_get_view() == MEMO_DRAFT_VIEW )
+		io_load_memo(NULL);
+	else if ( ui_memo_get_view() == MEMO_ABOOK_VIEW )
+		io_load_abook(NULL);
+	ui_memo_load_items();
+}
+
 static inline void key_generic_scroll_up(void)
 {
 	if (wins_slctd() == CAL) {
@@ -562,7 +572,8 @@ static inline void key_generic_scroll_up(void)
 		ui_todo_view_prev();
 		wins_update(FLAG_TOD | FLAG_APP);
 	} else if (wins_slctd() == MEMO) {
-		ui_memo_view_prev();
+		ui_memo_view_prev(); 	// change view index
+		redraw_memo_panel();	// reload content
 		wins_update(FLAG_MEMO | FLAG_APP);
 	}
 }
@@ -577,6 +588,7 @@ static inline void key_generic_scroll_down(void)
 		wins_update(FLAG_TOD | FLAG_APP);
 	} else if (wins_slctd() == MEMO) {
 		ui_memo_view_next();
+		redraw_memo_panel();	// reload content
 		wins_update(FLAG_MEMO | FLAG_APP);
 	}
 }

@@ -942,6 +942,7 @@ void io_save_cal(enum save_display);
 void io_load_app(struct item_filter *);
 void io_load_todo(struct item_filter *);
 void io_load_memo(struct item_filter *);
+void io_load_abook(struct item_filter *);
 void io_load_blank(void);
 void io_load_ledger(struct item_filter *);
 void io_load_data(struct item_filter *);

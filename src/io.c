@@ -800,6 +800,14 @@ void io_load_memo(struct item_filter *filter)
 	xfree(tmpfile);
 }
 
+/* Load abook data */
+void io_load_abook(struct item_filter *filter)
+{
+	char buf[BUFSIZ];
+	sprintf(buf,"hello the world %s","kevin");
+	memo_add(buf);
+}
+
 /* Load the todo data */
 void io_load_todo(struct item_filter *filter)
 {
